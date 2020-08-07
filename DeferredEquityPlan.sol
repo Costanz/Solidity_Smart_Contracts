@@ -26,6 +26,9 @@ contract DeferredEquityPlan {
         human_resources = msg.sender;
         employee = _employee;
     }
+    function fastforward() public {
+        fakenow += 366 days;
+    }
 
     function distribute() public {
         require(msg.sender == human_resources || msg.sender == employee, "You are not authorized to execute this contract.");
@@ -34,11 +37,11 @@ contract DeferredEquityPlan {
         // @TODO: Add "require" statements to enforce that:
         // 1: `unlock_time` is less than or equal to `now`
         
-        require(unlock_time < now || unlock_time == now);
+        require(unlock_time < fakenow || unlock_time == fakenow, "You are locked");
         
         // 2: `distributed_shares` is less than the `total_shares`
         
-        require(distributed_shares < total_shares);
+        require(distributed_shares < total_shares, "You have reached max distribution");
         
 
         // @TODO: Add 365 days to the `unlock_time`
@@ -68,7 +71,5 @@ contract DeferredEquityPlan {
         revert("Do not send Ether to this contract!");
     }
     
-    //function fastforward() public {
-    //fakenow += 100 days;
-// }
+    
 }

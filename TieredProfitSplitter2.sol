@@ -24,7 +24,7 @@ contract TieredProfitSplitter {
 
         // @TODO: Calculate and transfer the distribution percentage
         // Step 1: Set amount to equal `points` * the number of percentage points for this employee
-        amount = amount * 60;
+        amount = points * 60;
         
         // Step 2: Add the `amount` to `total` to keep a running total
         total += amount;
@@ -34,13 +34,13 @@ contract TieredProfitSplitter {
         
         // @TODO: Repeat the previous steps for `employee_two` and `employee_three`
             
-        amount = amount * 25;
+        amount = points * 25;
         total += amount;
         employee_two.transfer(amount);
             
-        amount = amount * 15;
+        amount = points * 15;
         total += amount;
-        employee_three.transfer;
+        employee_three.transfer(amount);
 
        
         employee_one.transfer(msg.value - total); // ceo gets the remaining wei
